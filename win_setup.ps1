@@ -16,11 +16,12 @@
   $enableFirefox            =   $true     # enable firefox in browser selector
   $enableChrome             =   $false    # enable chrome in browser selector
   $enableDiscord            =   $true     # enable discord installation
-  $enableVSCode             =   $true    # enable vs code installation
-  $enableGenshin            =   $true     # enable genshin impact installation (that being said you don't have a choice)
+  $enableVSCode             =   $true     # enable vs code installation
+  $enableCollapse           =   $true     # enable collapse launcher installation (that being said you don't have a choice)
   $enablePrismLauncher      =   $true     # enable prism launcher installation
   $enableSteam              =   $true     # enable steam installation
   $enableSpotify            =   $true     # enable spotify installation
+  $enableFeishin            =   $true     # enable feishin installation
   # piracy options *FOR EDUCATIONAL PURPOSES ONLY*
   $pirateWindows            =   $false     # pirates windows activation
   $pirateOffice             =   $false     # downloads and pirates ms office
@@ -59,6 +60,9 @@ Write-Host $(if($enableSteam){"on"}else{"off"}) -ForegroundColor $(if($enableSte
 
 Write-Host "Spotify Installation:             " -NoNewline -ForegroundColor Gray
 Write-Host $(if($enableSpotify){"on"}else{"off"}) -ForegroundColor $(if($enableSpotify){"Blue"}else{"Red"})
+
+Write-Host "Feishin Installation:             " -NoNewline -ForegroundColor Gray
+Write-Host $(if($enableFeishin){"on"}else{"off"}) -ForegroundColor $(if($enableSpotify){"Blue"}else{"Red"})
 
 Write-Host ""
 Write-Host "Pirate Settings:" -BackgroundColor Red
@@ -223,11 +227,10 @@ if ($enableWindowsTerminal) {
 } else { Write-Host "Skipping windows terminal installation" -ForegroundColor Yellow }
 
 #if ($enableGenshin) { # this was just a proof-of-concept, genshin will install itself anyway
-  Write-Host "======= GENSHIN IMPACT INSTALLATION =======" -BackgroundColor DarkBlue -ForegroundColor White
+  Write-Host "======= COLLAPSE LAUNCHER INSTALLATION =======" -BackgroundColor DarkBlue -ForegroundColor White
   Write-Host "Play Genshin Impact today! (You don't have a choice)" -ForegroundColor DarkBlue
-  # download and install exe (last updated 24/10/2023)
-  Invoke-WebRequest "https://download-porter.hoyoverse.com/download-porter/2023/09/20/GenshinImpact_install_20230908182428.exe?trace_key=GenshinImpact_install_ua_3ad9afc1e034" -OutFile GenshinImpact_install.exe
-  Start-Process GenshinImpact_install.exe
+  # install collapse launcher using winget
+  winget install --id Collpase.Collapse
 #} else { Write-Host "Skipping genshin impact installation" -ForegroundColor Yellow }
 
 if ($enablePrismLauncher) {
@@ -247,6 +250,12 @@ if ($enableSpotify) {
   Write-Host "Or as I like to call it, app that lets you listen to k-pop" -ForegroundColor DarkBlue
   winget install --id Spotify.Spotify
 } else { Write-Host "Skipping spotify installation" -ForegroundColor Yellow }
+
+if ($enableFeishin) {
+  Write-Host "======= FEISHIN INSTALLATION =======" -BackgroundColor DarkBlue -ForegroundColor White
+  Write-Host "Like spotify but for jellyfin server with my own music" -ForegroundColor DarkBlue
+  winget install --id jeffvli.Feishin
+} else { Write-Host "Skipping feishin installation" -ForegroundColor Yellow }
 
 ## === PIRACY PART ===
 # only for educational purposes
